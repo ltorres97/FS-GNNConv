@@ -4,8 +4,6 @@ We introduce a two-module GNN-CNN architecture, FS-GNNConv, that accepts the com
 
 The first module is a graph isomorphism network (GIN) to encode the topological structure of molecular graphs as a set of node (atoms) and edge (chemical bonds) features. These graphs are then converted into embedding representations to support further learning. A convolutional neural network (CNN) exploits the rich information of these embedded descriptors to compute deep vectorial representations. These representations are then propagated across convolutional layers to detect global patterns shared among molecules and identify local connections between close and distant neighbors in the graph. Deep representations are later used to predict task-specific molecular properties.
 
-![ScreenShot](results/figures/gnn-cnn.png?raw=true)
-
 A meta-learning framework was explored to optimize model parameters across tasks and quickly adapt to new molecular properties on few-shot data. 
 
 Extensive experiments on real multiproperty prediction data demonstrate the predictive power and stable performances of the proposed model when inferring specific target properties adaptively.
