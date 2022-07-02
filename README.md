@@ -69,7 +69,7 @@ The results below are the mean ROC-AUC scores and standard deviations obtained o
 |   SIDER  	| I.P.P.C. 	| 72.92+-1.03 	| 65.62+-1.95 	| 67.01+-0.76 	|      71.38+-0.68     	|    -1.54   	|
 |     -   	|  Average 	|    70.63    	|    63.42    	|    64.85    	|         70.03        	|    -0.60   	|
 
-## Code References
+## References
 
 [1] Hu, W., Liu, B., Gomes, J., Zitnik, M., Liang, P., Pande, V., Leskovec, J.: Strategies for pre-training graph neural networks. CoRR abs/1905.12265 (2020). https://doi.org/10.48550/ARXIV.1905.12265
 ```
