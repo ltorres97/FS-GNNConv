@@ -164,8 +164,8 @@ class Meta_eval(nn.Module):
             labels=[]
             y_label = []
             y_pred = []
-            #labels_tox21 = ['SR-HSE', 'SR-MMP', 'SR-p53']
-            labels_sider = ['R.U.D.', 'P.P.P.C.', 'E.L.D.', 'C.D.', 'N.S.D.', 'I.P.P.C.']
+            labels_tox21 = ['SR-HSE', 'SR-MMP', 'SR-p53']
+            #labels_sider = ['R.U.D.', 'P.P.P.C.', 'E.L.D.', 'C.D.', 'N.S.D.', 'I.P.P.C.']
             n_steps = 0
             
             for batch_idx, batch in enumerate(tqdm(query_set, desc="Iteration")):
@@ -214,14 +214,14 @@ class Meta_eval(nn.Module):
             ax.set_ylim(lim)
             ax.set_aspect('equal') 
             
-            g1.legend(title=labels_sider[t-1], bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.0)    
+            g1.legend(title=labels_tox21[t-1], bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.0)    
             g1.set(xticklabels=[])
             g1.set(yticklabels=[])
             g1.set(xlabel=None)
             g1.set(ylabel=None)
             g1.tick_params(bottom=False) 
             g1.tick_params(left=False)
-            plt.savefig('plots/'+labels_sider[t-1])
+            plt.savefig('plots/'+labels_tox21[t-1])
             plt.show()
             plt.close(fig)
             
