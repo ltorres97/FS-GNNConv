@@ -17,10 +17,10 @@ from torch_scatter import scatter_add
 from torch_geometric.nn.inits import glorot, zeros
 
 
-num_atom_type = 120 #including the extra mask tokens
+num_atom_type = 120
 num_chirality_tag = 3
 
-num_bond_type = 6 #including aromatic and self-loop edge, and extra masked tokens
+num_bond_type = 6 
 num_bond_direction = 3 
 
 
