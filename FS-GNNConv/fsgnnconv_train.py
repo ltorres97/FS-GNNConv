@@ -141,7 +141,7 @@ class Meta_train(nn.Module):
                     label = batch.y.view(graph_pred.shape).to(torch.float64)
                     train_logit, emb = self.cnn(self.gnn.pool(node_emb, batch.batch))
                     inner_loss = torch.sum(self.criterion_cnn(F.sigmoid(train_logit).double(), label))/train_logit.size()[0]
-                    loss = torch.sum(self.criterion(graph_pred.double(), label))/graph_pred.size()[0] # Molecular Property Prediction Loss - related with the labels for each task for each specific dataset
+                    loss = torch.sum(self.criterion(graph_pred.double(), label))/graph_pred.size()[0] 
                     loss_support += loss
                     inner_losses+= inner_loss
                 
@@ -156,7 +156,7 @@ class Meta_train(nn.Module):
                     graph_pred, node_emb = self.gnn(batch.x, batch.edge_index, batch.edge_attr, batch.batch)
                     size = list(node_emb.size())
                     label = batch.y.view(graph_pred.shape).to(torch.float64)
-                    loss = torch.sum(self.criterion(graph_pred.double(), label))/graph_pred.size()[0] # Molecular Property Prediction Loss - related with the labels for each task for each specific dataset
+                    loss = torch.sum(self.criterion(graph_pred.double(), label))/graph_pred.size()[0] 
                     test_logit, emb = self.cnn(self.gnn.pool(node_emb, batch.batch))
                     outer_loss = torch.sum(self.criterion_cnn(F.sigmoid(test_logit).double(), label))/test_logit.size()[0] 
                     loss_query += loss
