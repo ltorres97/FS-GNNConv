@@ -50,24 +50,6 @@ We used the following Python packages for core development.
 - rdkit
 ```
 
-## Performance Results
-
-The results below are the mean ROC-AUC scores and standard deviations obtained on 20 experiments with 20 different (5+,5-) random support sets.
-
-| Dataset 	|   Task   	|     GIN     	|     GCN     	|  GraphSAGE  	| FS-GNNConv (GIN+CNN) 	| delta(ROC-AUC) 	|
-|:-------:	|:--------:	|:-----------:	|:-----------:	|:-----------:	|:--------------------:	|:----------:	|
-|   Tox21  	|  SR-HSE  	| 61.44+-1.17 	| 65.76+-2.49 	| 64.19+-2.50 	|      76.37+-0.48     	|   +10.61   	|
-|   Tox21  	|  SR-MMP  	| 57.55+-0.90 	| 64.85+-1.28 	| 63.56+-3.89 	|      77.60+-0.33     	|   +12.75   	|
-|   Tox21  	|  SR-p53  	| 59.15+-1.13 	| 63.02+-1.49 	| 61.75+-3.45 	|      72.67+-0.59     	|    +9.65   	|
-|     -   	|  Average 	|    59.38    	|    64.54    	|    63.17    	|         75.55        	|   +11.01   	|
-|   SIDER  	|  R.U.D.  	| 69.77+-1.08 	| 60.62+-1.56 	| 62.62+-0.64 	|      69.44+-0.49     	|    -0.33   	|
-|   SIDER  	| P.P.P.C. 	| 77.05+-0.66 	| 71.89+-1.25 	| 74.16+-1.19 	|      70.88+-0.56     	|    -6.17   	|
-|   SIDER  	|  E.L.D.  	| 70.24+-1.03 	| 62.78+-0.96 	| 64.50+-0.75 	|      70.54+-0.63     	|    +0.30   	|
-|   SIDER  	|   C.D.   	| 68.66+-0.90 	| 60.82+-1.11 	| 61.81+-0.76 	|      70.52+-0.57     	|    +1.86   	|
-|   SIDER  	|  N.S.D.  	| 65.23+-0.70 	| 58.77+-2.27 	| 59.00+-1.41 	|      67.39+-0.81     	|    +2.16   	|
-|   SIDER  	| I.P.P.C. 	| 72.92+-1.03 	| 65.62+-1.95 	| 67.01+-0.76 	|      71.38+-0.68     	|    -1.54   	|
-|     -   	|  Average 	|    70.63    	|    63.42    	|    64.85    	|         70.03        	|    -0.60   	|
-
 ## References
 
 [1] Hu, W., Liu, B., Gomes, J., Zitnik, M., Liang, P., Pande, V., Leskovec, J.: Strategies for pre-training graph neural networks. CoRR abs/1905.12265 (2020). https://doi.org/10.48550/ARXIV.1905.12265
