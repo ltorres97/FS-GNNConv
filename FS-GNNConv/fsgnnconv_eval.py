@@ -205,23 +205,23 @@ class FSGNNConv_eval(nn.Module):
             if self.baseline == 0:    
                 self.cnn.eval()
             for k in range(0, self.k_test):
-                graph_loss = torch.tensor([0.0])
+                graph_loss = torch.tensor([0.0]).to(device)
                 if self.baseline == 0:   
-                    loss_logits = torch.tensor([0.0])
+                    loss_logits = torch.tensor([0.0]).to(device)
                 
                 for batch_idx, batch in enumerate(tqdm(support_set, desc="Iteration")):
                     batch = batch.to(device)
                     graph_pred, emb = self.gnn(batch.x, batch.edge_index, batch.edge_attr, batch.batch)
-                    y = batch.y.view(graph_pred.shape).to(torch.float64)
-                    loss_graph = self.loss(graph_pred.double(), y)
-                    graph_loss += torch.sum(loss_graph)/graph_pred.size()[0]
+                    y = batch.y.view(graph_pred.shape)
+                    loss_graph = self.loss(graph_pred.double(), y.to(torch.float64))
+                    graph_loss += torch.sum(loss_graph)/graph_pred.size(dim=0)
                     
                     if self.baseline == 0:
                         with torch.no_grad():
                             val_logit, emb = self.cnn(self.gnn.pool(emb, batch.batch))
                         
-                        loss_cnn = self.loss_cnn(F.sigmoid(val_logit).double(), y)
-                        loss_logits += torch.sum(loss_cnn)/val_logit.size()[0] 
+                        loss_cnn = self.loss_cnn(F.sigmoid(val_logit).double(), y.to(torch.float64))
+                        loss_logits += torch.sum(loss_cnn)/val_logit.size(dim=0) 
                               
                     del graph_pred, emb
                     
