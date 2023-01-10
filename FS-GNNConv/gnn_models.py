@@ -26,14 +26,7 @@ num_bond_direction = 3
 
 
 class GINConv(MessagePassing):
-    """
-    Extension of GIN aggregation to incorporate edge information by concatenation.
-    Args:
-        emb_dim (int): dimensionality of embeddings for nodes and edges.
-        embed_input (bool): whether to embed input or not. 
-        
-    See https://arxiv.org/abs/1810.00826
-    """
+    
     def __init__(self, emb_dim, aggr = "add"):
         super(GINConv, self).__init__()
         #multi-layer perceptron to introduce non-linearity
@@ -68,8 +61,6 @@ class GINConv(MessagePassing):
 
 class GCNConv(MessagePassing):
     
-    
-
     def __init__(self, emb_dim, aggr = "add"):
         super(GCNConv, self).__init__()
 
