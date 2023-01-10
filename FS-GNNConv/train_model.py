@@ -53,9 +53,6 @@ for epoch in range(1, 10000):
     model_dir = 'model/'
     is_best = epoch
     
-    """
-    Uncomment the following lines to save the model weigths as a new checkpoint
-    """
     for i in range(0, len(roc_scores)):
         if exp[i] < roc_scores[i]:
             exp[i] = roc_scores[i]
