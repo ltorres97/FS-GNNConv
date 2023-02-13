@@ -6,7 +6,9 @@ The first module is a graph isomorphism network (GIN) to encode the topological 
 
 ![ScreenShot](results/figures/fsgnnconv.png?raw=true)
 
-A meta-learning framework was explored to optimize model parameters across tasks and quickly adapt to new molecular properties on few-shot data. 
+A two-module meta-learning framework was explored to optimize model parameters across few-shot tasks and quickly adapt to new molecular properties on few-shot data. 
+
+![ScreenShot](results/figures/meta-fsgnnconv.png?raw=true)
 
 Extensive experiments on real multiproperty prediction data demonstrate the predictive power and stable performances of the proposed model when inferring specific target properties adaptively.
 
@@ -73,16 +75,7 @@ url={https://openreview.net/forum?id=HJlWWJSFDH},
   year      = {2017},
   url       = {http://arxiv.org/abs/1703.03400}
 }
-```
 
-[3] Guo, Z., Zhang, C., Yu, W., Herr, J., Wiest, O., Jiang, M., Chawla, N.V.: Few-shot graph learning for molecular property prediction. In: The Web Conference 2021 - Proceedings of the World Wide Web Conference, WWW 2021 (2021). https://doi.org/10.1145/3442381.3450112
-```
-@article{guo2021few,
-  title={Few-Shot Graph Learning for Molecular Property Prediction},
-  author={Guo, Zhichun and Zhang, Chuxu and Yu, Wenhao and Herr, John and Wiest, Olaf and Jiang, Meng and Chawla, Nitesh V},
-  journal={arXiv preprint arXiv:2102.07916},
-  year={2021}
-}
 ```
 [4] Tristan Deleu, Tobias Würfl, Mandana Samiei, Joseph Paul Cohen, and Yoshua Bengio. Torchmeta: A Meta-Learning library for PyTorch, 2019. 
 https://doi.org/10.48550/arXiv.1909.06576
