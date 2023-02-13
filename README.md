@@ -77,7 +77,7 @@ url={https://openreview.net/forum?id=HJlWWJSFDH},
 }
 
 ```
-[4] Tristan Deleu, Tobias Würfl, Mandana Samiei, Joseph Paul Cohen, and Yoshua Bengio. Torchmeta: A Meta-Learning library for PyTorch, 2019. 
+[3] Tristan Deleu, Tobias Würfl, Mandana Samiei, Joseph Paul Cohen, and Yoshua Bengio. Torchmeta: A Meta-Learning library for PyTorch, 2019. 
 https://doi.org/10.48550/arXiv.1909.06576
 ```
 @misc{deleu2019torchmeta,
