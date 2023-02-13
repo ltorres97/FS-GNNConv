@@ -8,7 +8,7 @@ The first module is a graph isomorphism network (GIN) to encode the topological 
 
 A two-module meta-learning framework was explored to optimize model parameters across few-shot tasks and quickly adapt to new molecular properties on few-shot data. 
 
-![ScreenShot](results/figures/meta-fsgnnconv.png?raw=true)
+![ScreenShot](results/figures/meta-fs-gnnconv.png?raw=true)
 
 Extensive experiments on real multiproperty prediction data demonstrate the predictive power and stable performances of the proposed model when inferring specific target properties adaptively.
 
