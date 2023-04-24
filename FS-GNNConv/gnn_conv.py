@@ -16,23 +16,6 @@ from torchmeta.modules import (MetaModule, MetaSequential, MetaConv1d,
                              MetaBatchNorm1d, MetaLinear)
 
 
-
-num_atom_type = 120 #including the extra mask tokens
-num_chirality_tag = 3
-
-num_bond_type = 6 #including aromatic and self-loop edge, and extra masked tokens
-num_bond_direction = 3 
-
-GNN_TYPES = [
-    'graph', 'graphsage', 'gcn',
-    'gin', 'gine',
-    'pna', 'pna2', 'pna3', 'mpnn', 'pna4',
-    'rwgnn', 'khopgnn'
-]
-
-EDGE_GNN_TYPES = []
-
-
 def conv3x3(in_channels, out_channels, **kwargs):
     return MetaSequential(
         MetaConv1d(in_channels, out_channels, kernel_size=3, padding=1, **kwargs), #kernel_size=10
