@@ -219,7 +219,7 @@ class FSGNNConv(nn.Module):
         self.gnn.train()
         if self.baseline == 0:
             self.cnn.train()
-        device = torch.device("cuda:" + str(self.device)) if torch.cuda.is_available() else torch.device("cpu")
+        device = torch.device("cuda:0" if torch.cuda.is_available() else torch.device("cpu"))
         
         support_sets, query_sets = sample_train(self.tasks, self.data, self.batch_size, self.n_support, self.n_query)
         
@@ -317,7 +317,7 @@ class FSGNNConv(nn.Module):
         roc_scores = []
         t=0
         graph_params = parameters_to_vector(self.gnn.parameters())
-        device = torch.device("cuda:" + str(self.device)) if torch.cuda.is_available() else torch.device("cpu")
+        device = torch.device("cuda:0" if torch.cuda.is_available() else torch.device("cpu"))
         
         for test_task in range(self.test_tasks):
             
