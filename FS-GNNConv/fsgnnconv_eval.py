@@ -198,7 +198,7 @@ class FSGNNConv_eval(nn.Module):
         roc_scores = []
         t=0
         graph_params = parameters_to_vector(self.gnn.parameters())
-        device = torch.device("cuda:" + str(self.device)) if torch.cuda.is_available() else torch.device("cpu")
+        device = torch.device("cuda:0" if torch.cuda.is_available() else torch.device("cpu"))
         for test_task in range(self.test_tasks):
             support_set, query_set = sample_test(self.tasks, test_task, self.data, self.batch_size, self.n_support, self.n_query)
             self.gnn.eval()
