@@ -22,7 +22,7 @@ The Tox21 and SIDER datasets are downloaded from [Data](http://snap.stanford.edu
 
 We pre-process the data and transform SMILES strings into molecular graphs using RDKit.Chem. 
 
-The code implementation is based on [Strategies for Pre-training Graph Neural Networks (Hu et al.) (2020)](https://arxiv.org/abs/1905.12265).
+The implementation is based on [Strategies for Pre-training Graph Neural Networks (Hu et al.) (2020)](https://arxiv.org/abs/1905.12265).
 
 ## Package Installation
 
