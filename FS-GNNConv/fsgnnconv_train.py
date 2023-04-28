@@ -244,9 +244,9 @@ class FSGNNConv(nn.Module):
                     loss_support += support_loss
                     
                     if self.baseline == 0:
-                        pred, emb = self.cnn(self.gnn.pool(emb, batch.batch))
-                        loss_cnn = self.loss_cnn(F.sigmoid(pred).double(), label.to(torch.float64))
-                        inner_loss = torch.sum(loss_cnn)/pred.size(dim=0)
+                        cnn_pred, emb = self.cnn(self.gnn.pool(emb, batch.batch))
+                        loss_cnn = self.loss_cnn(F.sigmoid(cnn_pred).double(), label.to(torch.float64))
+                        inner_loss = torch.sum(loss_cnn)/cnn_pred.size(dim=0)
                    
                     if self.baseline == 0:
                         inner_losses += inner_loss
@@ -372,17 +372,17 @@ class FSGNNConv(nn.Module):
                 if self.baseline == 0:
                     logit, emb = self.cnn(self.gnn.pool(emb, batch.batch))
                 
-                pred = parse_pred(logit)
+                p = parse_pred(logit)
                     
                 emb_tsne = emb.cpu().detach().numpy() 
-                y_tsne = batch.y.view(pred.shape).cpu().detach().numpy()
+                y_tsne = batch.y.view(p.shape).cpu().detach().numpy()
                
                 for i in emb_tsne:
                     nodes.append(i)
                 for j in y_tsne:
                     labels.append(j)
                 
-                y_pred.append(pred)   
+                y_pred.append(p)   
               
             #t = plot_tsne(nodes, labels, t)
              
