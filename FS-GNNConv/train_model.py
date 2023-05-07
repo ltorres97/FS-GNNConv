@@ -18,7 +18,6 @@ pretrained = "pre-trained/supervised_contextpred.pth"
 baseline = 0
 device = "cuda:0"
 model = FSGNNConv(dataset, gnn, support_set, pretrained, baseline)
-model.to(device)
 
 if dataset == "tox21":
     exp = [0,0,0]
