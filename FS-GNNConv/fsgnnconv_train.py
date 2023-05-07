@@ -132,7 +132,7 @@ def plot_tsne(nodes, labels, t):
     
     return t
     
-class FSGNNConv(nn.Module):
+class FSGNNConv():
     def __init__(self, dataset, gnn, support_set, pretrained, baseline):
         super(FSGNNConv,self).__init__()
         
