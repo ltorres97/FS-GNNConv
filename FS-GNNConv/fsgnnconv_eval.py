@@ -114,7 +114,7 @@ def plot_tsne(nodes, labels, t):
     
     return t
 
-class FSGNNConv_eval(nn.Module):
+class FSGNNConv_eval():
     def __init__(self, dataset, gnn, support_set, pretrained, baseline):
         super(FSGNNConv_eval,self).__init__()
                 
