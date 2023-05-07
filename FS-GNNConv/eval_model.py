@@ -52,7 +52,6 @@ Uncomment last line of fsgnnconv_eval.py
 
 device = "cuda:0"      
 model_eval = FSGNNConv_eval(dataset, gnn, support_set, pretrained, baseline)
-model_eval.to(device)
 
 print("Dataset:", dataset)
 
