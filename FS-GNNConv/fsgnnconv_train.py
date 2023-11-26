@@ -291,8 +291,8 @@ class FSGNNConv():
             
             if self.baseline == 0:
                 query_outer_loss = torch.sum(query_outer_losses)
-                loss_tr = query_outer_loss / self.train_tasks
-                loss_tr.to(device) 
+                loss_conv = query_outer_loss / self.train_tasks
+                loss_conv.to(device) 
             
             self.opt.zero_grad()
             
@@ -304,7 +304,7 @@ class FSGNNConv():
             
             if self.baseline == 0:
                 loss_graph.backward(retain_graph=True)
-                loss_tr.backward()
+                loss_conv.backward()
             
             self.opt.step()
             
