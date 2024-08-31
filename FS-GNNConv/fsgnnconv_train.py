@@ -172,9 +172,8 @@ class FSGNNConv():
         
         self.opt = optim.Adam(graph_params, lr=self.learning_rate, weight_decay=0) 
         self.gnn.to(torch.device("cuda:0"))
+        self.cnn.to(torch.device("cuda:0"))
         
-        self.ckp_path_gnn = ""
-        self.ckp_path_cnn = ""
         if self.baseline == 0:
             self.ckp_path_gnn = "checkpoints/checkpoints-FSGNNConv/check-tox21-5-gnn.pt"
             self.ckp_path_cnn = "checkpoints/checkpoints-FSGNNConv/check-tox21-5-cnn.pt"
@@ -212,8 +211,18 @@ class FSGNNConv():
         #self.cnn, self.meta_opt, start_epoch = load_ckp(self.ckp_path_cnn, self.cnn, self.meta_opt)
         
     def update_graph_params(self, loss, lr_update):
-        grads = torch.autograd.grad(loss, self.gnn.parameters())
-        return parameters_to_vector(grads), parameters_to_vector(self.gnn.parameters()) - parameters_to_vector(grads) * lr_update
+    
+        grads = torch.autograd.grad(loss, self.gnn.parameters(), retain_graph=True, allow_unused=True)
+        used_grads = [grad for grad in grads if grad is not None]
+        
+        return parameters_to_vector(used_grads), parameters_to_vector(self.gnn.parameters()) - parameters_to_vector(used_grads) * lr_update
+        
+    def update_cnn_params(self, loss, lr_update):
+       
+        grads_cnn = torch.autograd.grad(loss, self.cnn.parameters())
+        used_grads_cnn = [grad for grad in grads_cnn if grad is not None]
+        
+        return parameters_to_vector(used_grads_cnn), parameters_to_vector(self.cnn.parameters()) - parameters_to_vector(used_grads_cnn) * lr_update
 
     def meta_train(self):
         self.gnn.train()
@@ -225,6 +234,9 @@ class FSGNNConv():
         
         for k in range(0, self.k_train):
             graph_params = parameters_to_vector(self.gnn.parameters())
+            if self.baseline == 0:
+                cnn_params = parameters_to_vector(self.cnn.parameters())
+            
             query_losses = torch.tensor([0.0]).to(device)
             for t in range(self.train_tasks):
 
@@ -251,10 +263,12 @@ class FSGNNConv():
                     if self.baseline == 0:
                         inner_losses += inner_loss
                  
-                torch.cuda.empty_cache()    
-
                 updated_grad, updated_params = self.update_graph_params(loss_support, lr_update = self.lr_update)
                 vector_to_parameters(updated_params, self.gnn.parameters())
+
+                if self.baseline == 0:
+                    updated_grad_cnn, updated_cnn_params = self.update_cnn_params(loss_logits, lr_update = self.lr_update)
+                    vector_to_parameters(updated_cnn_params, self.cnn.parameters())
                 
                 for batch_idx, batch in enumerate(tqdm(query_sets[t], desc="Iteration")):
                     batch = batch.to(device)
@@ -284,6 +298,8 @@ class FSGNNConv():
                         query_outer_losses =  torch.cat((query_outer_losses, outer_losses), 0)
 
                 vector_to_parameters(graph_params, self.gnn.parameters())
+                if self.baseline == 0:
+                    vector_to_parameters(cnn_params, self.cnn.parameters())
 
             query_losses = torch.sum(query_losses)
             loss_graph = query_losses / self.train_tasks   
@@ -317,6 +333,9 @@ class FSGNNConv():
         roc_scores = []
         t=0
         graph_params = parameters_to_vector(self.gnn.parameters())
+        if self.baseline == 0:
+            cnn_params = parameters_to_vector(self.cnn.parameters())
+            
         device = torch.device("cuda:0" if torch.cuda.is_available() else torch.device("cpu"))
         
         for test_task in range(self.test_tasks):
@@ -349,13 +368,13 @@ class FSGNNConv():
                         loss_cnn = self.loss_cnn(F.sigmoid(val_logit).double(), y.to(torch.float64))
                         loss_logits += torch.sum(loss_cnn)/val_logit.size(dim=0)
                           
-                    del graph_pred, emb
-                    
                 updated_grad, updated_params = self.update_graph_params(graph_loss, lr_update = self.lr_update)
                 vector_to_parameters(updated_params, self.gnn.parameters())
-            
-            torch.cuda.empty_cache()
-            
+                
+                if self.baseline == 0:
+                    updated_grad_cnn, updated_cnn_params = self.update_cnn_params(loss_logits, lr_update = self.lr_update)
+                    vector_to_parameters(updated_cnn_params, self.cnn.parameters())
+
             nodes=[]
             labels=[]
             y_label = []
@@ -389,6 +408,8 @@ class FSGNNConv():
             roc_scores = roc_accuracy(roc_scores, y_label, y_pred)
                
             vector_to_parameters(graph_params, self.gnn.parameters())
+            if self.baseline == 0:
+                vector_to_parameters(cnn_params, self.cnn.parameters())
         
         return roc_scores, self.gnn.state_dict(), self.cnn.state_dict(), self.opt.state_dict(), self.meta_opt.state_dict()
                 
