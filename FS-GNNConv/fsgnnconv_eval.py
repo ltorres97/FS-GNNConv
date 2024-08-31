@@ -236,9 +236,7 @@ class FSGNNConv_eval():
                         
                         loss_cnn = self.loss_cnn(F.sigmoid(val_logit).double(), y.to(torch.float64))
                         loss_logits += torch.sum(loss_cnn)/val_logit.size(dim=0) 
-                              
-                    del graph_pred, emb
-                    
+                                            
                 updated_grad, updated_params = self.update_graph_params(graph_loss, lr_update = self.lr_update)
                 vector_to_parameters(updated_params, self.gnn.parameters())
 
